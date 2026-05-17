@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Индивидуальные задания</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:white;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+header{
+    text-align:center;
+    padding:40px 20px;
+}
+
+header h1{
+    font-size:42px;
+    color:#38bdf8;
+    margin-bottom:10px;
+}
+
+header p{
+    color:#cbd5e1;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+section{
+    background:#1e293b;
+    margin:40px 0;
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    animation:fadeUp 1s ease;
+}
+
+h2{
+    text-align:center;
+    margin-bottom:30px;
+    color:#38bdf8;
+    font-size:32px;
+}
+
+.calculator{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:20px;
+}
+
+.inputs{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+input, select{
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    font-size:18px;
+    width:150px;
+    text-align:center;
+}
+
+button{
+    padding:15px 25px;
+    border:none;
+    border-radius:12px;
+    background:#38bdf8;
+    color:#0f172a;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:translateY(-3px);
+    background:#0ea5e9;
+}
+
+.keyboard{
+    display:grid;
+    grid-template-columns:repeat(5,70px);
+    gap:10px;
+    justify-content:center;
+}
+
+.key{
+    background:#334155;
+    color:white;
+}
+
+.result{
+    width:250px;
+    padding:20px;
+    border-radius:15px;
+    background:#334155;
+    text-align:center;
+    font-size:24px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.range-box{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:25px;
+}
+
+.range-box input[type=range]{
+    width:100%;
+    max-width:500px;
+}
+
+.title-form{
+    display:grid;
+    gap:20px;
+    max-width:700px;
+    margin:auto;
+}
+
+.generated{
+    margin-top:40px;
+    background:white;
+    color:black;
+    padding:60px;
+    border-radius:20px;
+    display:none;
+}
+
+.title-sheet{
+    text-align:center;
+    min-height:700px;
+    position:relative;
+}
+
+.title-sheet h3{
+    margin:15px 0;
+}
+
+.bottom{
+    position:absolute;
+    bottom:0;
+    width:100%;
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.red{
+    background:red !important;
+    color:white !important;
+}
+
+@media(max-width:768px){
+
+    h1{
+        font-size:30px;
+    }
+
+    section{
+        padding:25px;
+    }
+
+    .keyboard{
+        grid-template-columns:repeat(3,70px);
+    }
+
+    .inputs{
+        flex-direction:column;
+        align-items:center;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Индивидуальные задания</h1>
+    <p>HTML + CSS + JavaScript</p>
+</header>
+
+<div class="container">
+
+<!-- КАЛЬКУЛЯТОР -->
+
+<section>
+
+<h2>1. Калькулятор</h2>
+
+<div class="calculator">
+
+<div class="inputs">
+    <input type="number" id="num1" placeholder="Число 1">
+
+    <select id="operator">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+
+    <input type="number" id="num2" placeholder="Число 2">
+</div>
+
+<button onclick="calculate()">Посчитать</button>
+
+<div class="keyboard">
+    <button class="key" onclick="insertNumber(0)">0</button>
+    <button class="key" onclick="insertNumber(1)">1</button>
+    <button class="key" onclick="insertNumber(2)">2</button>
+    <button class="key" onclick="insertNumber(3)">3</button>
+    <button class="key" onclick="insertNumber(4)">4</button>
+    <button class="key" onclick="insertNumber(5)">5</button>
+    <button class="key" onclick="insertNumber(6)">6</button>
+    <button class="key" onclick="insertNumber(7)">7</button>
+    <button class="key" onclick="insertNumber(8)">8</button>
+    <button class="key" onclick="insertNumber(9)">9</button>
+</div>
+
+<div class="result" id="result">
+    Ответ
+</div>
+
+</div>
+
+</section>
+
+<!-- RANGE -->
+
+<section id="rangeSection">
+
+<h2>2. Стрелочный индикатор</h2>
+
+<div class="range-box">
+
+<input type="range" min="0" max="10" value="0" id="range">
+
+<div class="keyboard">
+    <button class="key" onclick="setRange(0)">0</button>
+    <button class="key" onclick="setRange(1)">1</button>
+    <button class="key" onclick="setRange(2)">2</button>
+    <button class="key" onclick="setRange(3)">3</button>
+    <button class="key" onclick="setRange(4)">4</button>
+    <button class="key" onclick="setRange(5)">5</button>
+    <button class="key" onclick="setRange(6)">6</button>
+    <button class="key" onclick="setRange(7)">7</button>
+    <button class="key" onclick="setRange(8)">8</button>
+    <button class="key" onclick="setRange(9)">9</button>
+</div>
+
+</div>
+
+</section>
+
+<!-- TITLE PAGE -->
+
+<section>
+
+<h2>3. Генератор титульного листа</h2>
+
+<div class="title-form">
+
+<input type="text" id="department" placeholder="Кафедра">
+<input type="text" id="group" placeholder="Группа">
+<input type="text" id="teacher" placeholder="ФИО преподавателя">
+<input type="text" id="student" placeholder="ФИО студента">
+
+<button onclick="generateTitle()">
+    Сгенерировать титульный лист
+</button>
+
+</div>
+
+<div class="generated" id="generated">
+
+<div class="title-sheet">
+
+<h3>МИНИСТЕРСТВО НАУКИ И ВЫСШЕГО ОБРАЗОВАНИЯ РФ</h3>
+
+<h3>МГТУ "СТАНКИН"</h3>
+
+<br><br>
+
+<p id="depText"></p>
+
+<br><br><br><br>
+
+<h1>ОТЧЕТ</h1>
+<h2>по лабораторной работе</h2>
+
+<div class="bottom">
+
+<p id="studentText"></p>
+<p id="groupText"></p>
+
+<br><br>
+
+<p id="teacherText"></p>
+
+<br><br>
+
+<p>Москва 2026</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<script>
+
+// КАЛЬКУЛЯТОР
+
+let currentInput = 1;
+
+document.getElementById("num1").addEventListener("focus",()=>{
+    currentInput = 1;
+});
+
+document.getElementById("num2").addEventListener("focus",()=>{
+    currentInput = 2;
+});
+
+function insertNumber(num){
+
+    if(currentInput === 1){
+        document.getElementById("num1").value += num;
+    }else{
+        document.getElementById("num2").value += num;
+    }
+}
+
+function calculate(){
+
+    let num1 = Number(document.getElementById("num1").value);
+    let num2 = Number(document.getElementById("num2").value);
+    let op = document.getElementById("operator").value;
+
+    let result;
+
+    switch(op){
+        case "+":
+            result = num1 + num2;
+            break;
+
+        case "-":
+            result = num1 - num2;
+            break;
+
+        case "*":
+            result = num1 * num2;
+            break;
+
+        case "/":
+            result = num2 !== 0 ? num1 / num2 : "Ошибка";
+            break;
+    }
+
+    let resultBox = document.getElementById("result");
+
+    resultBox.classList.remove("red");
+
+    if(result > 15){
+        resultBox.innerText = "число > 15";
+        resultBox.classList.add("red");
+    }else{
+        resultBox.innerText = result;
+    }
+}
+
+// RANGE
+
+function setRange(num){
+
+    let range = document.getElementById("range");
+    let section = document.getElementById("rangeSection");
+
+    range.value = num;
+
+    if(num > 5){
+        section.classList.add("red");
+    }else{
+        section.classList.remove("red");
+    }
+}
+
+// TITLE PAGE
+
+function generateTitle(){
+
+    let dep = document.getElementById("department").value;
+    let group = document.getElementById("group").value;
+    let teacher = document.getElementById("teacher").value;
+    let student = document.getElementById("student").value;
+
+    document.getElementById("depText").innerText =
+        "Кафедра: " + dep;
+
+    document.getElementById("groupText").innerText =
+        "Группа: " + group;
+
+    document.getElementById("teacherText").innerText =
+        "Преподаватель: " + teacher;
+
+    document.getElementById("studentText").innerText =
+        "Студент: " + student;
+
+    document.getElementById("generated").style.display = "block";
+
+    document.getElementById("generated")
+        .scrollIntoView({behavior:"smooth"});
+}
+
+</script>
+
+</body>
+</html>
